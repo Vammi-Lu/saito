@@ -1,0 +1,94 @@
+body {
+        font-family: 'Courier New';
+        font-size: 100%;
+        background: black;
+    }
+
+table, th, td {
+  border: 1px solid white;
+  border-collapse: collapse;
+  text-align: center;
+}  /* табличка */
+
+/* классы ниже, а стили выше */
+
+.header {
+    text-align: justify; /* выровнять текст по ширине */
+    letter-spacing: 1px; /* расстояние между буквами */
+    height: 4em; /* высота элемента */
+    padding: 60px; /* внутренние отступы */
+    background: #85DCB8;
+    color: #574B90;
+    font-size: 30px; /* размер шрифта элемента */
+} 
+
+.header nav {
+    display: inline-block;
+}
+
+
+.main {
+    position: absolute;
+    padding: 100px;
+    background: #41B3A3;
+    color: azure;
+    font-size: 30px;
+} /* изменить позицию или разобраться с этим чёртовым абсолютом*/
+
+.text_block {
+    width: 70%;
+    height: 50%;
+    text-align: left;
+    margin: 10px;
+    display: inline-block;
+}
+/* КАЛЬКУЛЯТОРНЫЕ НАСТРОЙКИ */
+.calculater {
+    width: 256px;
+    height: 256px;
+    background-color: #85DCB8;
+    padding: 40px;
+    border-radius: 10px;
+    display: inline-block;
+
+    & > .bmi-text {
+        font-size: 1.1rem;
+        
+        &#bmi-value {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+    }
+}
+
+label,
+input,
+button {
+    display: table-cell;
+    margin: 10px 0;
+}
+
+button {
+    background-color: mediumpurple;
+    color: whitesmoke;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(96, 67, 153);
+}
+
+button:active {
+    background-color: rgb(40, 22, 75);
+}
+/* КОНЕЦ КАЛЬКУЛЯТОРНЫХ НАСТРОЕК */
+
+.footer {
+    padding: 60px;
+    background: #85DCB8;
+    color: #574B90;
+    font-size: 30px;
+}
