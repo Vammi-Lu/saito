@@ -1,0 +1,158 @@
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: Arial, Helvetica, 'Courier New';
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+    text-align: justify; /* выровнять текст по ширине */
+    letter-spacing: 1px; /* расстояние между буквами */
+    height: 1em; /* высота элемента */
+    padding: 60px; /* внутренние отступы */
+    background: #85DCB8;
+    color: #574B90;
+    font-size: 30px; /* размер шрифта элемента */
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 75px;
+    width: 100%;
+    background: #41B3A3;
+    color: azure;
+    font-size: 30px;
+}
+
+/* начало настройки шапки */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+/* конец настройки шапки */
+
+.main {
+    position: absolute;
+    padding: 100px;
+    background: #41B3A3;
+    color: azure;
+    font-size: 30px;
+} /* изменить позицию или разобраться с этим чёртовым абсолютом*/
+
+.text_block {
+    /* width: 70%; */
+    width: 30em;
+    font-size: 1.25rem;
+    height: 50%;
+    text-align: left;
+    margin: 10px;
+    display: inline-block;
+}
+/* КАЛЬКУЛЯТОРНЫЕ НАСТРОЙКИ */
+.calculater {
+    width: 256px;
+    height: 256px;
+    background-color: #85DCB8;
+    padding: 40px;
+    border-radius: 10px;
+    display: inline-block;
+
+    & > .bmi-text {
+        font-size: 1.1rem;
+        
+        &#bmi-value {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+    }
+}
+
+label,
+input,
+button {
+    display: table-cell;
+    margin: 10px 0;
+}
+
+button {
+    background-color: mediumpurple;
+    color: whitesmoke;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: rgb(96, 67, 153);
+}
+
+button:active {
+    background-color: rgb(40, 22, 75);
+}
+/* КОНЕЦ КАЛЬКУЛЯТОРНЫХ НАСТРОЕК */
+
