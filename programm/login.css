@@ -1,0 +1,58 @@
+form {
+    border: 3px solid #f7cdf7;
+} 
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #d3abd3;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #7e547e;
+    color: antiquewhite;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: 0;
+    cursor: pointer;
+    width: 100%;
+} /* стиль кнопок */
+
+button:hover {
+    opacity: 0.8;
+    transition: 2s;
+    background-color: #774377;
+} /* при наведении на кнопку */
+
+.cancel {
+    width: auto;
+    padding: 10px 18px; /* внутренний отступ */
+    background-color: brown;
+} /* Отмена (твиттер момент) */
+
+.contain {
+    padding: 16px;
+}
+
+span.psswrd {
+    float: right;
+    padding-top: 16px;
+}
+
+
+ /* штука для маленьких экранов? */
+
+@media screen and (min-width: 480px) {
+    span.psswrd {
+        display: block;
+        float: none; /* он типа не плавает */
+    }
+
+    .cancel {
+        width: 100%;
+    }
+}
+
