@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <head>
+    <title></title>
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="login.css" type="text/css">
+    <link rel="stylesheet" href="login.js" type="text/css">
+    
+    </head>
+
+    <body>
+        
+        <header>
+        <div class="navbar">
+            <a href="website.html">Главная</a>
+            <a href="inform.html">Сведения</a>
+
+        <div class="dropdown">
+         <button class="dropbtn">Профилактика ожирения</button>
+
+        <div class="dropdown-content">
+         <a href="rational.html">Рациональное питание</a>
+         <a href="">Физическая нагрузка</a>
+        </div>
+      </div> 
+    </div>
+            <!--FORM-->
+ 
+        <div class="vvod"> 
+            <button onclick="document.getElementById('id01').style.display='block'" class="butt">Вход</button>
+        </div>  
+
+            <div id="id01" class="modal">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть модальный">&times;</span>
+            
+            <form class="modal-content animate" action="/action_page.php">
+                <div class="container">
+                    <label for="username"><b>Имя пользователя</b></label>
+                    <input type="text" placeholder="Введите Ваше имя" name="username" required>
+
+                    <label for="psswrd"><b>Пароль</b></label>
+                    <input type="password" placeholder="Введите пароль" name="psswrd" required>
+                    
+                <button type="submit">Войти</button>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Запомнить меня
+                </label>
+            </div>
+            
+            <div class="contain" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancel">Отменить</button>
+                <span class="psswrd">Забыли <a href="#">пароль?</a></span>
+            </div>
+        </form>
+              
+        </header>
+
+        <main>
+            <div class="text_block">
+             <h1>Диета №8</h1>
+                <p>*Тут будет диета* </p>
+
+             <h2>О полезных продуктах</h2>
+                <p>Тут будет список продуктов + рецепты (тыкаешь на картинку и всплывает окно)
+                </p>
+            </div>
+        </main>
+
+        <footer></footer>
+
+    </body>
+    
+</html>
