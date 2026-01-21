@@ -95,6 +95,22 @@ main {
 }
 /* конец настройки шапки */
 
+.vvod {
+  position: relative;
+} 
+
+.butt {
+  right: 5px;
+  left: 1100px;
+  top: 0px;
+  bottom: 30px;
+  width: 100px;
+  height: 50px;
+  position: fixed; /* перемещение */
+  padding: 5px 10px; /* уменьшение размера */
+}
+/* кнопка ввода */
+
 .main {
     position: absolute;
     padding: 100px;

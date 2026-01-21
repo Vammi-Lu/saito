@@ -7,6 +7,8 @@
     <title></title>
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="login.css" type="text/css">
+    <link rel="stylesheet" href="login.js" type="text/css">
     
     </head>
 
@@ -26,12 +28,35 @@
         </div>
       </div> 
     </div>
+            <!--FORM-->
+ 
+        <div class="vvod"> 
+            <button onclick="document.getElementById('id01').style.display='block'" class="butt">Ввод</button>
+        </div>  
 
-        <button onclick="document.getElementById('id01').style.display='block'">Регистрация</button>
+            <div id="id01" class="modal">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть модальный">&times;</span>
+            
+            <form class="modal-content animate" action="/action_page.php">
+                <div class="container">
+                    <label for="username"><b>Имя пользователя</b></label>
+                    <input type="text" placeholder="Введите Ваше имя" name="username" required>
 
-        <div id="id01" class="mod">
-            <span onclick="document.getElementById('id01').style.display='none'"></span>
-        </div>
+                    <label for="psswrd"><b>Пароль</b></label>
+                    <input type="password" placeholder="Введите пароль" name="psswrd" required>
+                    
+                <button type="submit">Ввод</button>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Запомнить меня
+                </label>
+            </div>
+            
+            <div class="contain" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancel">Отменить</button>
+                <span class="psswrd">Забыли <a href="#">пароль?</a></span>
+            </div>
+        </form>
+              
         </header>
 
         <main>

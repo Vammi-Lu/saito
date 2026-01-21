@@ -2,10 +2,11 @@
 <html>
     <head>
         <title></title>
+        <link rel="stylesheet" href="login.css" type="text/css">
     </head>
 
     <body>
-        <form>
+    <!--    <form>
             <div class="contain">
                 <label for="username"><b>Имя пользователя</b></label>
                 <input type="text" placeholder="Введите Ваше имя" name="username" required>
@@ -23,7 +24,35 @@
                 <button type="button" class="cancel">Отмена</button>
                 <span class="psswrd"><a href="/">Забыли пароль?</a></span>
             </div>
+        </form> -->
+
+        <!--Модальная форма-->
+
+        <button onclick="document.getElementById('id01').style.display='block'">Ввод</button>
+        
+        <div id="id01" class="modal">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть модальный">&times;</span>
+            
+            <form class="modal-content animate" action="/action_page.php">
+                <div class="container">
+                    <label for="username"><b>Имя пользователя</b></label>
+                    <input type="text" placeholder="Введите Ваше имя" name="username" required>
+
+                    <label for="psswrd"><b>Пароль</b></label>
+                    <input type="password" placeholder="Введите пароль" name="psswrd" required>
+                    
+                <button type="submit">Ввод</button>
+                <label>
+                    <input type="checkbox" checked="checked" name="remember"> Запомнить меня
+                </label>
+            </div>
+            
+            <div class="contain" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancel">Отменить</button>
+                <span class="psswrd">Забыли <a href="#">пароль?</a></span>
+            </div>
         </form>
+    </div>
 
 
     </body>
