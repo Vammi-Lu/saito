@@ -6,58 +6,59 @@
     <head>
     <title></title>
     <link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <link rel="stylesheet" href="login.css" type="text/css">
-    <link rel="stylesheet" href="login.js" type="text/css">
+    <link rel="stylesheet" href="style/style.css" type="text/css">
+    <link rel="stylesheet" href="style/login.css" type="text/css">
+
+    <script type="module" src="./script/components/index.js"></script>
     
     </head>
 
     <body>
-        
         <header>
-        <div class="navbar">
-            <a href="website.html">Главная</a>
-            <a href="inform.html">Сведения</a>
-
-        <div class="dropdown">
-         <button class="dropbtn">Профилактика ожирения</button>
-
-        <div class="dropdown-content">
-         <a href="rational.html">Рациональное питание</a>
-         <a href="">Физическая нагрузка</a>
-        </div>
-      </div> 
-    </div>
-            <!--FORM-->
- 
-        <div class="vvod"> 
-            <button onclick="document.getElementById('id01').style.display='block'" class="butt">Вход</button>
-        </div>  
-
+            <div class="navbar">
+                <a href="website.html">Главная</a>
+                <a href="inform.html">Сведения</a>
+        
+                <div class="dropdown">
+                    <button class="dropbtn">Профилактика ожирения</button>
+                    <div class="dropdown-content">
+                        <a href="rational.html">Рациональное питание</a>
+                        <a href="/">Физическая нагрузка</a>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="vvod">
+                <button onclick="document.getElementById('id01').style.display='block'" class="butt">Вход</button>
+            </div>
+        
             <div id="id01" class="modal">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Закрыть модальный">&times;</span>
-            
-            <form class="modal-content animate" action="/action_page.php">
-                <div class="container">
-                    <label for="username"><b>Имя пользователя</b></label>
-                    <input type="text" placeholder="Введите Ваше имя" name="username" required>
-
-                    <label for="psswrd"><b>Пароль</b></label>
-                    <input type="password" placeholder="Введите пароль" name="psswrd" required>
-                    
-                <button type="submit">Войти</button>
-                <label>
-                    <input type="checkbox" checked="checked" name="remember"> Запомнить меня
-                </label>
+                <span onclick="document.getElementById('id01').style.display='none'" class="close"
+                    title="Закрыть модальный">&times;</span>
+                <form class="modal-content animate" action="/action_page.php">
+                    <div class="container">
+                        <label for="username"><b>Имя пользователя</b></label>
+                        <input type="text" placeholder="Введите Ваше имя" name="username" required>
+        
+                        <label for="psswrd"><b>Пароль</b></label>
+                        <input type="password" placeholder="Введите пароль" name="psswrd" required>
+        
+                        <button type="submit">Войти</button>
+        
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember"> Запомнить меня
+                        </label>
+                    </div>
+        
+                    <div class="contain" style="background-color:#f1f1f1">
+                        <button type="button" onclick="document.getElementById('id01').style.display='none'"
+                            class="cancel">Отменить</button>
+                        <span class="psswrd">Забыли <a href="#">пароль?</a></span>
+                    </div>
+                </form>
             </div>
-            
-            <div class="contain" style="background-color:#f1f1f1">
-                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancel">Отменить</button>
-                <span class="psswrd">Забыли <a href="#">пароль?</a></span>
-            </div>
-        </form>
-              
         </header>
+        <!-- аааммм ~ ехехехе делайте делайте а я тебя :) 0_0 ))) Ничего, если я буду билеты делать, люблю тебя ^^-->
 
         <main>
             <div class="text_block">
@@ -132,13 +133,13 @@
                 <div id="bmi-value" class="bmi-text"></div>
                 <div id="bmi-description" class="bmi-text"></div>
             </div>
-            <script src="calculater_scr.js"></script> <!--подключение джавы-->
-            <script src="login.js" type="module"></script> <!--подключение джавы-->
+            <script src="script/calculater_scr.js"></script> <!--подключение джавы-->
+            <script src="script/login.js" type="module"></script> <!--подключение джавы-->
             
         </div>
         </main>
 
-        <footer></footer>
+        <page-footer></page-footer>
     </body>
     
 </html>

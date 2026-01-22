@@ -12,10 +12,15 @@ body {
   flex-direction: column;
 }
 
+header, footer {
+  flex: 0 0 auto;
+}
+
 header {
     text-align: justify; /* выровнять текст по ширине */
     letter-spacing: 1px; /* расстояние между буквами */
-    height: 1em; /* высота элемента */
+    min-height: 1em; /* высота элемента */
+    max-height: 1em; /* высота элемента */
     padding: 60px; /* внутренние отступы */
     background: #85DCB8;
     color: #574B90;
@@ -23,6 +28,8 @@ header {
 }
 
 main {
+    flex: 1 1 auto;
+    min-height: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,6 +38,16 @@ main {
     background: #41B3A3;
     color: azure;
     font-size: 30px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #328b7e;
+  color: azure;
+  font-size: 30px;
+  min-height: 90px;
 }
 
 /* начало настройки шапки */
