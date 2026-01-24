@@ -1,11 +1,23 @@
-.page-content {
+.page-main {
 	background: var(--medical-theme-color-medium);
 
 	position: relative;
 	
 	width: 100%;
+	padding: 2rem;
 
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: center;
+
+	& > .page-main__content {
+		width: 30rem;
+	}
+
+	& > .page-main__sidebar {
+		position: absolute;
+		top: 2rem;
+		left: calc(50% + 15rem + 2rem);
+		width: 24rem;
+	}
 }

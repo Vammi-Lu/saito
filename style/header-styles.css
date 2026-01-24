@@ -125,9 +125,6 @@
 					height: 50%;
 					background: var(--medical-theme-color-light);
 				}
-				&:first-child::before {
-					background: transparent;
-				}
 			}
 
 			& .header-navigation__link {
@@ -156,4 +153,8 @@
 			}
 		}
 	}
+}
+
+.page-header > .page-header__content-wrapper > .header-navigation > .header-navigation__list > .header-navigation__item:first-child::before {
+	background: transparent;
 }

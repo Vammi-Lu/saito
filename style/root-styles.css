@@ -10,6 +10,9 @@ html, body {
 	height: 100vh;
 	width: 100vw;
 	overflow: hidden;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+	scroll-behavior: smooth;
 }
 
 html {
@@ -29,10 +32,10 @@ body {
 	flex: 0 0 auto;
 }
 
-.page-content {
+.page-main {
 	flex: 1 1 auto;
 }
 
-.page-footer, .page-content {
+.page-footer, .page-main {
 	color: var(--text-light);
 }

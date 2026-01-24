@@ -1,16 +1,23 @@
-import { META_DATA } from "../variables-constants.js";
+import { CURRENT_PATH, CONTENT_DATA } from "../variables-constants.js";
+import { contentBuilder } from "../utils/content-builder.js";
 
-class PageContent extends HTMLElement {
+class PageMain extends HTMLElement {
   connectedCallback() {
     const markup = document.createElement("main");
-    markup.classList.add("page-content");
+    markup.classList.add("page-main");
+    console.log(CONTENT_DATA);
 
     markup.innerHTML = /*html*/ `
-			Это основной контент
+			<div class="page-main__content">
+        ${contentBuilder(CONTENT_DATA[CURRENT_PATH]["content"])}
+      </div>
+      <div class="page-main__sidebar">
+
+      </div>
 		`;
 
     this.replaceWith(markup);
   }
 }
 
-customElements.define("page-content", PageContent);
+customElements.define("page-main", PageMain);
