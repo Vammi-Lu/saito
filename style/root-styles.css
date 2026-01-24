@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+	box-sizing: border-box;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+}
+
+html {
+	font-size: 16px;
+	font-family: 'PT Sans', Arial, Helvetica, sans-serif;
+	color: var(--text-dark);
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.page-header, .page-footer {
+	flex: 0 0 auto;
+}
+
+.page-content {
+	flex: 1 1 auto;
+}
+
+.page-footer, .page-content {
+	color: var(--text-light);
+}

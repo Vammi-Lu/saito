@@ -1,3 +1,16 @@
 :root {
-	
+	--text-light: #eee;
+	--text-dark: #333;
+	--background-dark: #333;
+	--background-light: #eee;
+
+	--medical-theme-color-light: #85DCB8;
+	--medical-theme-color-medium: #58d472;
+	--medical-theme-color-dark: #34c752;
+
+	--header-item-hover: #58d472;
+	--header-item-active: #34c752;
+
+	--header-item-hover-light: #ffffff;
+	--header-item-active-light: #d9d9d9;
 }

@@ -1,0 +1,11 @@
+.page-content {
+	background: var(--medical-theme-color-medium);
+
+	position: relative;
+	
+	width: 100%;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}

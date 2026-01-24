@@ -7,7 +7,7 @@ class PageHeaderNav extends HTMLElement {
     const items = this.buildNavMenu(NAVIGATION_DATA[variant]);
     
     markup.classList.add("header-navigation");
-    
+
     const menu = this.buildNavMenu(NAVIGATION_DATA[variant]);
     markup.appendChild(menu);
     
@@ -22,15 +22,28 @@ class PageHeaderNav extends HTMLElement {
       const li = document.createElement("li");
       li.classList.add("header-navigation__item");
 
+      if (item.style) {
+        li.setAttribute("style", item.style);
+      }
+
       if (item.url) {
         const a = document.createElement("a");
         a.classList.add("header-navigation__link");
         a.textContent = item.label;
         a.href = item.url;
+
+        if (item.attributes) {
+          for (const [key, value] of Object.entries(item.attributes)) {
+            a.setAttribute(key, value);
+          }
+        }
+
         li.appendChild(a);
       } else {
+        li.classList.add("list-dropdown");
+
         const span = document.createElement("span");
-        span.classList.add("header-navigation__sublist");
+        span.classList.add("header-navigation__sub-title");
         span.textContent = item.label;
         li.appendChild(span);
       }
@@ -45,5 +58,5 @@ class PageHeaderNav extends HTMLElement {
     return ul;
   }
 }
- 
+
 customElements.define("page-header-navigation", PageHeaderNav);

@@ -1,3 +1,9 @@
 @import './colors.css';
-@import './style.css';
-@import './login.css';
+@import './root-styles.css';
+@import './header-styles.css';
+@import './main-styles.css';
+@import './footer-styles.css';
+
+@import './elements/dropdown.css';
+/* @import './style.css';
+@import './login.css'; */
