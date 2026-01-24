@@ -123,7 +123,7 @@
 					transform: translateY(-50%);
 					width: 2px;
 					height: 50%;
-					background: var(--medical-theme-color-light);
+					background: var(--medical-theme-color-details);
 				}
 			}
 

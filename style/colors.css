@@ -4,8 +4,9 @@
 	--background-dark: #333;
 	--background-light: #eee;
 
-	--medical-theme-color-light: #85DCB8;
-	--medical-theme-color-medium: #58d472;
+	--medical-theme-color-details: #85DCB8;
+	--medical-theme-color-light: #66d77d;
+	--medical-theme-color-medium: #52cd69;
 	--medical-theme-color-dark: #34c752;
 
 	--header-item-hover: #58d472;
@@ -13,4 +14,8 @@
 
 	--header-item-hover-light: #ffffff;
 	--header-item-active-light: #d9d9d9;
+
+	--button-color: #52cd69;
+	--button-color-hover: #66d77d;
+	--button-color-active: #34c752;
 }

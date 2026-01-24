@@ -1,0 +1,25 @@
+.button {
+	all: unset;
+	display: inline-block;
+	cursor: pointer;
+
+	background: var(--button-color);
+	color: var(--text-light);
+	font-size: 1rem;
+	line-height: 1;
+	text-align: center;
+
+	border-radius: 5px;
+	padding: 0.5rem 1rem;
+	margin: 0.75rem;
+
+	transition: background 0.2s ease-in-out;
+
+	&:hover {
+		background: var(--button-color-hover);
+	}
+
+	&:active {
+		background: var(--button-color-active);
+	}
+}

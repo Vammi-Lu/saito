@@ -1,5 +1,4 @@
 function contentBuilder(node) {
-  // строка = HTML
   if (typeof node === "string") {
     return node;
   }
@@ -8,21 +7,69 @@ function contentBuilder(node) {
     return node.map(contentBuilder).join("");
   }
 
-  // объект
   if (node && typeof node === "object") {
     return Object.entries(node)
       .map(([tag, value]) => {
-        if (tag === "table") {
+        const { tagName, id, classes, attributes } = parseTag(tag);
+
+        if (tagName === "table") {
           return renderTable(value);
         }
 
+        // Специальная обработка для script тегов
+        if (tagName === "script") {
+          return renderScript(id, classes, attributes, value);
+        }
+
         const inner = contentBuilder(value);
-        return `<${tag}>${inner}</${tag}>`;
+        const idAttr = id ? ` id="${id}"` : "";
+        const classAttr = classes.length ? ` class="${classes.join(" ")}"` : "";
+        const attrsStr = attributes.length
+          ? " " +
+            attributes
+              .map(([key, val]) => (val ? `${key}="${val}"` : key))
+              .join(" ")
+          : "";
+
+        return `<${tagName}${idAttr}${classAttr}${attrsStr}>${inner}</${tagName}>`;
       })
       .join("");
   }
 
   return "";
+}
+
+function parseTag(tag) {
+  const attributes = [];
+  const attrRegex = /\[([^\]=]+)(?:=([^\]]+))?\]/g;
+  let match;
+  while ((match = attrRegex.exec(tag)) !== null) {
+    const key = match[1].trim();
+    const value = match[2] ? match[2].trim() : null;
+    attributes.push([key, value]);
+  }
+
+  const tagWithoutAttrs = tag.replace(attrRegex, "");
+
+  let tagName = "div";
+  let id = "";
+  const classes = [];
+
+  const firstSpecial = tagWithoutAttrs.search(/[#.]/);
+  if (firstSpecial === -1) {
+    tagName = tagWithoutAttrs || "div";
+  } else {
+    tagName = tagWithoutAttrs.slice(0, firstSpecial) || "div";
+    const rest = tagWithoutAttrs.slice(firstSpecial);
+    const regex = /([#.])([^#.]+)/g;
+    let m;
+    while ((m = regex.exec(rest)) !== null) {
+      if (m[1] === "#") id = m[2];
+      else if (m[1] === ".") classes.push(m[2]);
+    }
+  }
+
+  return { tagName, id, classes, attributes };
 }
 
 function renderTable(table) {
@@ -55,6 +102,38 @@ function renderTable(table) {
 			${tbody}
 		</table>
 	`;
+}
+
+function renderScript(id, classes, attributes, content) {
+  const placeholderId = `script-placeholder-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
+  const placeholder = `<div id="${placeholderId}" style="display:none;"></div>`;
+
+  setTimeout(() => {
+    const placeholderElement = document.getElementById(placeholderId);
+    if (!placeholderElement) return;
+
+    const script = document.createElement("script");
+
+    if (id) script.id = id;
+    if (classes.length) script.className = classes.join(" ");
+
+    attributes.forEach(([key, val]) => {
+      if (val) {
+        script.setAttribute(key, val);
+      } else {
+        script.setAttribute(key, "");
+      }
+    });
+
+    if (content && typeof content === "string") {
+      script.textContent = content;
+    }
+
+    placeholderElement.replaceWith(script);
+  }, 0);
+
+  return placeholder;
 }
 
 export { contentBuilder, renderTable };

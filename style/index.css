@@ -4,6 +4,8 @@
 @import './main-styles.css';
 @import './footer-styles.css';
 
+@import './elements/button.css';
 @import './elements/dropdown.css';
+@import './elements/bmi-calculator.css';
 /* @import './style.css';
 @import './login.css'; */

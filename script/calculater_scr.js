@@ -15,7 +15,7 @@ function getBMIIndex(weight, height) {
     return weight / ((height / 100) ** 2);
 }
 
-function calculate() {
+function calculateBMI() {
     const weightInput = document.getElementById("weight-input");
     const heightInput = document.getElementById("height-input");
 
@@ -35,7 +35,7 @@ function calculate() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const calculationButton = document.getElementById("calculation-button");
-    calculationButton.addEventListener("click", calculate);
+    calculationButton.addEventListener("click", calculateBMI);
 });
 
 // function calculate() {
