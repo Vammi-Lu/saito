@@ -1,4 +1,5 @@
 import { User, usersDataBase, RegistrationForm } from "./login.js";
+import { BASE_PATH } from "./variables-constants.js";
 
 async function proceedLoginForm(formElement, isRegistration = false) {
   const form = formElement;
@@ -123,7 +124,7 @@ async function proceedLoginForm(formElement, isRegistration = false) {
         }
 
         form.reset();
-        window.location.href = '/profile';
+        window.location.href = BASE_PATH + '/profile';
 
       } else {
         const login = usernameInput.value.trim();
