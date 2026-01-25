@@ -2,7 +2,7 @@ class RegistrationForm {
   static validationPatterns = {
     login: /^[a-zA-Z0-9._-]{3,}$/,
     email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-    password: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+    password: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
   };
 
   static validateMessages = {
@@ -20,6 +20,7 @@ class UsersDB {
   constructor() {
     this.dbName = "app-db";
     this.storeName = "users";
+    this.version = 3;
     this.db = null;
   }
 
@@ -29,27 +30,44 @@ class UsersDB {
 
   #openDB() {
     return new Promise((resolve, reject) => {
-      const request = indexedDB.open(this.dbName, 1);
+      const request = indexedDB.open(this.dbName, this.version);
 
       request.onupgradeneeded = (e) => {
         const db = e.target.result;
-
+        console.log(`Обновление БД до версии ${this.version}...`);
+        
         if (!db.objectStoreNames.contains(this.storeName)) {
-          db.createObjectStore(this.storeName, {
-            keyPath: "id",
-          });
+          db.createObjectStore(this.storeName, { keyPath: "id" });
         }
       };
 
       request.onsuccess = () => resolve(request.result);
       request.onerror = () => reject(request.error);
+      
+      request.onblocked = () => {
+        // alert("Пожалуйста, закройте другие вкладки этого сайта для обновления приложения.");
+      };
     });
   }
 
   #store(mode = "readonly") {
+    if (!this.db.objectStoreNames.contains(this.storeName)) {
+      throw new Error(`Хранилище "${this.storeName}" не найдено. Попробуйте очистить кэш/IndexedDB или повысить версию БД.`);
+    }
     return this.db
       .transaction(this.storeName, mode)
       .objectStore(this.storeName);
+  }
+  
+  async deleteDatabase() {
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.deleteDatabase(this.dbName);
+      req.onsuccess = () => {
+        console.log("База данных успешно удалена");
+        resolve();
+      };
+      req.onerror = () => reject("Не удалось удалить БД");
+    });
   }
 
   async isLoginExists(login) {
@@ -63,6 +81,7 @@ class UsersDB {
   }
 
   async add(user) {
+    const jsonUser = user.toJSON();
     if (await this.isLoginExists(user.login)) {
       throw new Error("LOGIN_EXISTS");
     }
@@ -72,7 +91,7 @@ class UsersDB {
     }
 
     return new Promise((resolve, reject) => {
-      const req = this.#store("readwrite").add(user);
+      const req = this.#store("readwrite").add(jsonUser);
       req.onsuccess = () => resolve();
       req.onerror = () => reject(req.error);
     });
@@ -126,8 +145,8 @@ class User {
       ? data.passwordHash
       : this.#passwordHashing(data.password);
   
-		this.displayName = data.displayName;
-	}
+    this.displayName = data.displayName;
+  }
 
   #passwordHashing(password) {
     return btoa(password);
@@ -151,7 +170,8 @@ class User {
       createdAt: this.createdAt,
       login: this.login,
       email: this.email,
-      passwordHash: this.#passwordHash,
+      displayName: this.displayName,
+      passwordHash: this.#passwordHash
     };
   }
 
@@ -161,9 +181,10 @@ class User {
   }
 }
 
-
 const usersDataBase = new UsersDB();
-await usersDataBase.init();
+await usersDataBase.init().catch(err => {
+  console.error('Критическая ошибка инициализации БД:', err);
+});
 
 const testUser = new User({
   login: "SindiMilashka",
@@ -181,3 +202,5 @@ try {
 }
 
 console.log(await usersDataBase.getAll());
+
+export { usersDataBase, User, RegistrationForm };

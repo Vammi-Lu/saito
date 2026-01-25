@@ -1,9 +1,11 @@
-import { CURRENT_PATH, CONTENT_DATA } from "../variables-constants.js";
+import { CURRENT_PATH, CONTENT_DATA, CURRENT_USER } from "../variables-constants.js";
 import { contentBuilder } from "../utils/content-builder.js";
 import { applyTypographyToElement } from "../utils/typographer.js";
+import { replaceVariableInText } from "../utils/login-utils.js";
+import { proceedLoginForm } from "../login-form.js";
 
 class PageMain extends HTMLElement {
-  connectedCallback() {
+  async connectedCallback() {
     const markup = document.createElement("main");
     markup.classList.add("page-main");
 
@@ -19,8 +21,22 @@ class PageMain extends HTMLElement {
 
     markup.appendChild(pageMainContent);
     markup.appendChild(pageMainSidebar);
-
-    this.replaceWith(markup);
+		
+    if (CURRENT_PATH == '/login' || CURRENT_PATH == '/register') {
+			const isRegister = CURRENT_PATH == '/register';
+			const formElement = markup.querySelector(`.login-form`);
+      
+      if (formElement) {
+				await proceedLoginForm(formElement, isRegister);
+      }
+		} else if (CURRENT_PATH == '/profile') {
+			if (CURRENT_USER == null) {
+				window.location.href = '/login';
+			}
+			replaceVariableInText(markup, CURRENT_USER);
+		}
+		
+		this.replaceWith(markup);
   }
 }
 

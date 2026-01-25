@@ -61,5 +61,48 @@
 	},
 	"/rational": {},
 	"/activity": {},
-	"/login": {}
+	"/profile": {
+		"content": [
+			{"h2": "${displayName}, добро пожаловать!"},
+			{"p": ""}
+		]
+	},
+	"/login": {
+		"content": [
+			{"div.login-block-wrapper": [
+				{"h2": "Вход"},
+				{"div.login-form-wrapper": [
+					{"form.login-form": [
+						{"input#login-username[type=text][name=username][autocomplete=username][placeholder=Логин]": ""},
+						{"input#login-password[type=password][name=password][placeholder=Пароль]": ""},
+						{"button#login-button.button.button-bright": "Войти в аккаунт"}
+					]}
+				]},
+				{"p.login-tips": [
+					{"span": "Ещё нет аккаунта?"},
+					{"a[href=/register]": "Зарегистрируйтесь"}
+				]}
+			]}
+		]
+	},
+	"/register": {
+		"content": [
+			{"div.login-block-wrapper": [
+				{"h2": "Регистрация"},
+				{"div.login-form-wrapper": [
+					{"form.login-form": [
+            {"input#login-username[type=text][name=username][autocomplete=username][placeholder=Логин]": ""},
+            {"input#login-displayname[type=text][name=displayname][autocomplete=name][placeholder=Отображаемое имя]": ""},
+            {"input#login-email[type=email][name=email][autocomplete=email][placeholder=Электронная почта]": ""},
+            {"input#login-password[type=password][name=password][autocomplete=new-password][placeholder=Пароль]": ""},
+            {"button#login-button.button.button-bright": "Создать аккаунт"}
+					]}
+				]},
+				{"p.login-tips": [
+					{"span": "Уже есть аккаунт?"},
+					{"a[href=/login]": "Войти"}
+				]}
+			]}
+		]
+	}
 }

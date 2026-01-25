@@ -1,3 +1,5 @@
+import { BASE_PATH } from "../variables-constants.js";
+
 function contentBuilder(node) {
   if (typeof node === "string") {
     return node;
@@ -16,10 +18,17 @@ function contentBuilder(node) {
           return renderTable(value);
         }
 
-        // Специальная обработка для script тегов
         if (tagName === "script") {
           return renderScript(id, classes, attributes, value);
-        }
+				}
+
+				if (tagName === "a") {
+					attributes.map(([key, val]) => {
+						if (key === 'href') {
+							attributes[0][1] = BASE_PATH + val;
+						}
+					})
+				}
 
         const inner = contentBuilder(value);
         const idAttr = id ? ` id="${id}"` : "";

@@ -18,4 +18,16 @@
 	--button-color: #52cd69;
 	--button-color-hover: #66d77d;
 	--button-color-active: #34c752;
+
+	--button-color-light: #eee;
+	--button-color-light-hover: #ffffff;
+	--button-color-light-active: #d9d9d9;
+
+	--link-color: #fff18b;
+	--link-color-hover: #fff;
+	--link-color-active: #ffe837;
+
+	--medical-theme-link-color: #52cd69;
+	--medical-theme-link-color-hover: #66d77d;
+	--medical-theme-link-color-active: #34c752;
 }

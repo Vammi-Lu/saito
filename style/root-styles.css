@@ -28,6 +28,27 @@ body {
 	flex-direction: column;
 }
 
+a {
+	color: var(--link-color);
+	text-decoration: none;
+	&:hover {
+		color: var(--link-color-hover);
+		text-decoration: underline;
+	}
+	&:active {
+		color: var(--link-color-active);
+	}
+	&:visited {
+		color: var(--link-color);
+	}
+	&:visited:hover {
+		color: var(--link-color-hover);
+	}
+	&:visited:active {
+		color: var(--link-color-active);
+	}
+}
+
 .page-header, .page-footer {
 	flex: 0 0 auto;
 }

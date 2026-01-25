@@ -43,61 +43,48 @@ function calculateBMI() {
 function initBMICalculator() {
   const heightInput = document.getElementById("bmi-height");
   const weightInput = document.getElementById("bmi-weight");
-  
-  function preventNonNumeric(e) {
-    const allowedKeys = [
-      'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 
-      'Tab', 'Home', 'End'
-    ];
-    
-    if (allowedKeys.includes(e.key)) return;
-    
-    if ((e.ctrlKey || e.metaKey) && ['a', 'c', 'v', 'x'].includes(e.key.toLowerCase())) {
-      return;
-    }
-    
-    if (!/^\d$/.test(e.key) && e.key !== '.') {
-      e.preventDefault();
-      return;
-    }
-    
-    if (e.key === '.' && e.target.value.includes('.')) {
-      e.preventDefault();
-    }
+
+  const limits = {
+    height: { min: 45, max: 272 },
+    weight: { min: 2.5, max: 645 }
+  };
+
+
+	function preventNonNumeric(e) {
+		const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Home', 'End'];
+		if (allowedKeys.includes(e.key)) return;
+		if ((e.ctrlKey || e.metaKey) && ['a','c','v','x'].includes(e.key.toLowerCase())) return;
+		if (/^\d$/.test(e.key)) return;
+		if (e.key === '.' && !e.target.value.includes('.')) return;
+		e.preventDefault();
+	}
+
+  function enforceLimitsOnBlur(e, fieldLimits) {
+    const val = parseFloat(e.target.value);
+    if (isNaN(val)) return;
+    if (val < fieldLimits.min) e.target.value = fieldLimits.min;
+    if (val > fieldLimits.max) e.target.value = fieldLimits.max;
   }
-  
-  function cleanPastedContent(e) {
+
+  function handlePaste(e, fieldLimits) {
     e.preventDefault();
-    
     const pastedText = (e.clipboardData || window.clipboardData).getData('text');
-    
-    let cleaned = pastedText.replace(/[^\d.]/g, '');
-    
-    const parts = cleaned.split('.');
-    if (parts.length > 2) {
-      cleaned = parts[0] + '.' + parts.slice(1).join('');
-    }
-    
-    const input = e.target;
-    const start = input.selectionStart;
-    const end = input.selectionEnd;
-    const currentValue = input.value;
-    
-    input.value = currentValue.substring(0, start) + cleaned + currentValue.substring(end);
-    input.setSelectionRange(start + cleaned.length, start + cleaned.length);
+    let numeric = parseFloat(pastedText.replace(/[^\d.]/g, ''));
+    if (isNaN(numeric)) numeric = '';
+    e.target.value = numeric;
   }
-  
-  if (heightInput) {
-    heightInput.addEventListener('keydown', preventNonNumeric);
-    heightInput.addEventListener('paste', cleanPastedContent);
-  }
-  
-  if (weightInput) {
-    weightInput.addEventListener('keydown', preventNonNumeric);
-    weightInput.addEventListener('paste', cleanPastedContent);
-  }
-  
-  console.log('BMI calculator initialized');
+
+  [heightInput, weightInput].forEach((input, idx) => {
+    if (!input) return;
+    const fieldLimits = idx === 0 ? limits.height : limits.weight;
+
+    input.setAttribute('min', fieldLimits.min);
+    input.setAttribute('max', fieldLimits.max);
+
+    input.addEventListener('keydown', preventNonNumeric);
+    input.addEventListener('paste', (e) => handlePaste(e, fieldLimits));
+    input.addEventListener('blur', (e) => enforceLimitsOnBlur(e, fieldLimits));
+  });
 }
 
 if (document.readyState === 'loading') {

@@ -22,4 +22,17 @@
 	&:active {
 		background: var(--button-color-active);
 	}
+
+	&.button-bright {
+		background: var(--button-color-light);
+		color: var(--text-dark);
+
+		&:hover {
+			background: var(--button-color-light-hover);
+		}
+
+		&:active {
+			background: var(--button-color-light-active);
+		}
+	}
 }
