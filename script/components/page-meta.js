@@ -6,7 +6,7 @@ class PageMeta extends HTMLElement {
 		const elements = [
       { tag: "title", content: META_DATA["Заголовок"] },
       { tag: "meta", attributes: { name: "description", content: META_DATA["Мета"]["Описание"] } },
-      { tag: "link", attributes: { rel: "icon", href: "./favicon.ico" } },
+      { tag: "link", attributes: { rel: "icon", href: "./images/svg/logo.svg" } },
       { tag: "link", attributes: { rel: "stylesheet", href: "./style/index.css" } },
     ];
 
