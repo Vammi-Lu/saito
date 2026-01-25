@@ -1,4 +1,4 @@
-import { META_DATA, NAVIGATION_DATA } from "../variables-constants.js";
+import { RELATIVE_PATH, NAVIGATION_DATA } from "../variables-constants.js";
 
 class PageHeaderNav extends HTMLElement {
   connectedCallback() {
@@ -30,7 +30,7 @@ class PageHeaderNav extends HTMLElement {
         const a = document.createElement("a");
         a.classList.add("header-navigation__link");
         a.textContent = item.label;
-        a.href = item.url;
+				a.href = RELATIVE_PATH + item.url;
 
         if (item.attributes) {
           for (const [key, value] of Object.entries(item.attributes)) {

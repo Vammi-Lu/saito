@@ -5,6 +5,7 @@ const repoRoot = window.location.hostname.includes("github.io") ? `/${pathSegmen
 
 const BASE_PATH = window.location.origin + repoRoot + "/";
 const CURRENT_PATH = "/" + pathSegments.slice(repoRoot ? 1 : 0).join("/");
+const RELATIVE_PATH = pathSegments.slice(repoRoot ? 1 : 0).join("/");
 
 const META_DATA_PATH = `${BASE_PATH}data/meta.json`;
 const NAVIGATION_DATA_PATH = `${BASE_PATH}data/navigation.json`;
@@ -23,7 +24,8 @@ const [
 export {
 	BASE_PATH,
 	CURRENT_PATH,
-	META_DATA,
+	RELATIVE_PATH,
+	META_DATA,	
 	NAVIGATION_DATA,
 	CONTENT_DATA
 };
