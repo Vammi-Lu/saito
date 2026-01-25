@@ -1,7 +1,7 @@
 import { readJSON } from "./utils/json.js";
 
-const pathSegments = window.location.pathname.split('/').filter(Boolean); 
-const repoRoot = pathSegments.length > 1 ? `/${pathSegments[0]}` : "";
+const pathSegments = window.location.pathname.split('/').filter(Boolean);
+const repoRoot = window.location.hostname.includes("github.io") ? `/${pathSegments[0]}` : "";
 
 const BASE_PATH = window.location.origin + repoRoot + "/";
 const CURRENT_PATH = "/" + pathSegments.slice(repoRoot ? 1 : 0).join("/");
