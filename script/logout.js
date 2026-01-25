@@ -1,9 +1,7 @@
 function logout() {
-  sessionStorage.removeItem('currentUserId');
-	sessionStorage.clear();
-	console.log('Пользователь вышел из системы');
+  localStorage.removeItem('currentUserId');
+  console.log('Пользователь вышел из системы');
+  window.location.href = '/';
 }
 
 logout();
-
-window.location.href = '/';

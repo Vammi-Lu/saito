@@ -201,4 +201,21 @@ await usersDataBase.init().catch(err => {
   console.error('Критическая ошибка инициализации БД:', err);
 });
 
+const testUser = new User({
+  login: "SindiMilashka",
+  email: "sindi@milashka.ru",
+  password: "dK3#!$%&M",
+  displayName: "Синди Милашка",
+});
+
+try {
+  await usersDataBase.add(testUser);
+  console.log("Пользователь создан");
+} catch (e) {
+  if (e.message === "LOGIN_EXISTS") console.log("Логин уже занят");
+  if (e.message === "EMAIL_EXISTS") console.log("Email уже используется");
+}
+
+console.log(await usersDataBase.getAll());
+
 export { usersDataBase, User, RegistrationForm };

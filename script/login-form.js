@@ -119,7 +119,7 @@ async function proceedLoginForm(formElement, isRegistration = false) {
         const registeredUser = allUsers.find(u => u.login === newUser.login);
 
         if (registeredUser) {
-          sessionStorage.setItem('currentUserId', registeredUser.id);
+          localStorage.setItem('currentUserId', registeredUser.id);
         }
 
         form.reset();
@@ -137,7 +137,7 @@ async function proceedLoginForm(formElement, isRegistration = false) {
           return;
         }
 
-        sessionStorage.setItem('currentUserId', user.id);
+        localStorage.setItem('currentUserId', user.id);
         window.location.href = '/';
       }
 

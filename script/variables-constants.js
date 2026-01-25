@@ -12,7 +12,7 @@ const NAVIGATION_DATA_PATH = `${BASE_PATH}/data/navigation.json`;
 const CONTENT_DATA_PATH = `${BASE_PATH}/data/content.json`;
 
 async function getCurrentUser() {
-	const currentUserId = sessionStorage.getItem('currentUserId');
+	const currentUserId = localStorage.getItem('currentUserId');
 	console.log(currentUserId);
   
   if (!currentUserId) {
@@ -24,7 +24,7 @@ async function getCurrentUser() {
     const userData = await usersDataBase.get(currentUserId);
     
     if (!userData) {
-      sessionStorage.removeItem('currentUserId');
+      localStorage.removeItem('currentUserId');
       return null;
     }
 
