@@ -1,4 +1,4 @@
-import { BASE_PATH } from "./variables-constants";
+import { BASE_PATH } from "./variables-constants.js";
 
 function logout() {
   localStorage.removeItem('currentUserId');
