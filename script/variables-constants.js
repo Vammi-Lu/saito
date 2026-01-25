@@ -1,8 +1,14 @@
 import { readJSON } from "./utils/json.js";
 
-const META_DATA_PATH = "/data/meta.json";
-const NAVIGATION_DATA_PATH = "/data/navigation.json";
-const CONTENT_DATA_PATH = "/data/content.json";
+const pathSegments = window.location.pathname.split('/').filter(Boolean); 
+const repoRoot = pathSegments.length > 1 ? `/${pathSegments[0]}` : "";
+
+const BASE_PATH = window.location.origin + repoRoot + "/";
+const CURRENT_PATH = "/" + pathSegments.slice(repoRoot ? 1 : 0).join("/");
+
+const META_DATA_PATH = `${BASE_PATH}data/meta.json`;
+const NAVIGATION_DATA_PATH = `${BASE_PATH}data/navigation.json`;
+const CONTENT_DATA_PATH = `${BASE_PATH}data/content.json`;
 
 const [
 	META_DATA,
@@ -13,9 +19,9 @@ const [
 	readJSON(CONTENT_DATA_PATH)
 ]);
 
-const CURRENT_PATH = window.location.pathname.replace(/\.[^/.]+$/, "") || "/";
 
 export {
+	BASE_PATH,
 	CURRENT_PATH,
 	META_DATA,
 	NAVIGATION_DATA,
