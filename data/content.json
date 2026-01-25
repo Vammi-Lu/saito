@@ -75,6 +75,7 @@
 					{"form.login-form": [
 						{"input#login-username[type=text][name=username][autocomplete=username][placeholder=Логин]": ""},
 						{"input#login-password[type=password][name=password][placeholder=Пароль]": ""},
+						{"div.form-error[hidden]": ""},
 						{"button#login-button.button.button-bright": "Войти в аккаунт"}
 					]}
 				]},
@@ -95,6 +96,7 @@
             {"input#login-displayname[type=text][name=displayname][autocomplete=name][placeholder=Отображаемое имя]": ""},
             {"input#login-email[type=email][name=email][autocomplete=email][placeholder=Электронная почта]": ""},
             {"input#login-password[type=password][name=password][autocomplete=new-password][placeholder=Пароль]": ""},
+						{"div.form-error[hidden]": ""},
             {"button#login-button.button.button-bright": "Создать аккаунт"}
 					]}
 				]},

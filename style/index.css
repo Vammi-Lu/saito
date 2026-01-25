@@ -8,5 +8,4 @@
 @import './elements/dropdown.css';
 @import './elements/bmi-calculator.css';
 @import './elements/login-register.css';
-/* @import './style.css';
-@import './login.css'; */
+@import './elements/error.css';

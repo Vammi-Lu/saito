@@ -1,20 +1,35 @@
 class RegistrationForm {
-  static validationPatterns = {
-    login: /^[a-zA-Z0-9._-]{3,}$/,
-    email: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-    password: /^(?=.*[A-Za-z])(?=.*\d).{8,}$/,
-  };
+  static rules = {
+    login: {
+      minLength: 3,
+      pattern: /^[a-zA-Z0-9._-]+$/,
+      messages: {
+        required: 'Введите логин',
+        length: 'Введите не менее 3 символов',
+        pattern: 'Только латинские буквы, цифры, знаки _ - и .'
+      }
+    },
 
-  static validateMessages = {
-    login: "Логин должен быть не менее 3 символов",
-    email: "Почта должна быть валидной (почта@домен.домен)",
-    password: "Пароль должен быть не менее 8 символов",
-  };
+    email: {
+      pattern: /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+      messages: {
+        required: 'Введите электронную почту',
+        pattern: 'Почта должна быть валидной (почта@домен.домен)'
+      }
+    },
 
-  static validateField(field, pattern) {
-    return pattern.test(field.value);
-  }
+    password: {
+      minLength: 8,
+      pattern: /^(?=.*[A-Za-z])(?=.*\d).+$/,
+      messages: {
+        required: 'Введите пароль',
+        length: 'Введите не менее 8 символов',
+        pattern: 'Пароль должен содержать буквы и цифры'
+      }
+    }
+  };
 }
+
 
 class UsersDB {
   constructor() {
@@ -185,22 +200,5 @@ const usersDataBase = new UsersDB();
 await usersDataBase.init().catch(err => {
   console.error('Критическая ошибка инициализации БД:', err);
 });
-
-const testUser = new User({
-  login: "SindiMilashka",
-  email: "sindi@milashka.ru",
-  password: "dK3#!$%&M",
-  displayName: "Синди Милашка",
-});
-
-try {
-  await usersDataBase.add(testUser);
-  console.log("Пользователь создан");
-} catch (e) {
-  if (e.message === "LOGIN_EXISTS") console.log("Логин уже занят");
-  if (e.message === "EMAIL_EXISTS") console.log("Email уже используется");
-}
-
-console.log(await usersDataBase.getAll());
 
 export { usersDataBase, User, RegistrationForm };

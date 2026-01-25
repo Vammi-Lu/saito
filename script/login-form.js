@@ -9,91 +9,103 @@ async function proceedLoginForm(formElement, isRegistration = false) {
   const displayNameInput = form.querySelector('#login-displayname');
   const submitButton = form.querySelector('#login-button');
 
+  const formError = form.querySelector('.form-error');
+
+  function showFormError(message) {
+    if (!formError) return;
+    formError.textContent = message;
+    formError.hidden = false;
+  }
+
+  function clearFormError() {
+    if (!formError) return;
+    formError.hidden = true;
+    formError.textContent = '';
+  }
+
   function showError(input, message) {
-    const existingError = input.parentElement.querySelector('.error-message');
-    if (existingError) existingError.remove();
-    
+    let errorElement = input.nextElementSibling;
+    if (errorElement && errorElement.classList.contains('error-message')) {
+      errorElement.textContent = message;
+    } else {
+      errorElement = document.createElement('span');
+      errorElement.className = 'error-message';
+      errorElement.textContent = message;
+      input.after(errorElement);
+    }
+
     input.classList.add('error');
-    
-    const errorElement = document.createElement('span');
-    errorElement.className = 'error-message';
-    errorElement.textContent = message;
-    errorElement.style.color = 'red';
-    errorElement.style.fontSize = '12px';
-    errorElement.style.marginTop = '4px';
-    errorElement.style.display = 'block';
-    
-    input.parentElement.insertBefore(errorElement, input.nextSibling);
   }
 
   function clearError(input) {
     input.classList.remove('error');
-    const errorElement = input.parentElement.querySelector('.error-message');
-    if (errorElement) errorElement.remove();
-  }
-
-function validateInputs() {
-  let isValid = true;
-
-  if (!usernameInput.value.trim()) {
-    showError(usernameInput, 'Введите логин');
-    isValid = false;
-  } else if (isRegistration && !RegistrationForm.validationPatterns.login.test(usernameInput.value)) {
-    showError(usernameInput, RegistrationForm.validateMessages.login);
-    isValid = false;
-  } else {
-    clearError(usernameInput);
-  }
-
-  if (!passwordInput.value) {
-    showError(passwordInput, 'Введите пароль');
-    isValid = false;
-  } else if (isRegistration && !RegistrationForm.validationPatterns.password.test(passwordInput.value)) {
-    showError(passwordInput, RegistrationForm.validateMessages.password);
-    isValid = false;
-  } else {
-    clearError(passwordInput);
-  }
-
-  if (isRegistration) {
-    if (!emailInput.value.trim()) {
-      showError(emailInput, 'Введите электронную почту');
-      isValid = false;
-    } else if (!RegistrationForm.validationPatterns.email.test(emailInput.value)) {
-      showError(emailInput, RegistrationForm.validateMessages.email);
-      isValid = false;
-    } else {
-      clearError(emailInput);
-    }
-
-    if (!displayNameInput.value.trim()) {
-      showError(displayNameInput, 'Введите отображаемое имя');
-      isValid = false;
-    } else {
-      clearError(displayNameInput);
+    const errorElement = input.nextElementSibling;
+    if (errorElement && errorElement.classList.contains('error-message')) {
+      errorElement.remove();
     }
   }
 
-  return isValid;
-}
+  function validateInputs() {
+    let isValid = true;
+
+    const fields = [
+      { input: usernameInput, rules: RegistrationForm.rules.login },
+      { input: passwordInput, rules: RegistrationForm.rules.password },
+      isRegistration && { input: emailInput, rules: RegistrationForm.rules.email },
+      isRegistration && {
+        input: displayNameInput,
+        rules: {
+          messages: { required: 'Введите отображаемое имя' }
+        }
+      }
+    ].filter(Boolean);
+
+    fields.forEach(({ input, rules }) => {
+      const value = input.value.trim();
+
+      if (!value) {
+        showError(input, rules.messages.required);
+        isValid = false;
+        return;
+      }
+
+      if (rules.minLength && value.length < rules.minLength) {
+        showError(input, rules.messages.length);
+        isValid = false;
+        return;
+      }
+
+      if (rules.pattern && !rules.pattern.test(value)) {
+        showError(input, rules.messages.pattern);
+        isValid = false;
+        return;
+      }
+
+      clearError(input);
+    });
+
+    return isValid;
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
+    clearFormError();
+
     [usernameInput, passwordInput, emailInput, displayNameInput]
       .filter(Boolean)
       .forEach(clearError);
-			
-			if (!validateInputs()) {
-				return;
-			}
+
+    if (isRegistration && !validateInputs()) {
+      return;
+    }
 
     submitButton.disabled = true;
     const originalText = submitButton.textContent;
-		submitButton.textContent = 'Обработка...';
+    submitButton.textContent = 'Обработка...';
 
     try {
-			if (isRegistration) {
+      if (isRegistration) {
         const newUser = new User({
           login: usernameInput.value.trim(),
           email: emailInput.value.trim(),
@@ -102,37 +114,30 @@ function validateInputs() {
         });
 
         await usersDataBase.add(newUser);
-        
-        // Автоматический логин после регистрации
+
         const allUsers = await usersDataBase.getAll();
         const registeredUser = allUsers.find(u => u.login === newUser.login);
-        
+
         if (registeredUser) {
           sessionStorage.setItem('currentUserId', registeredUser.id);
         }
-        
+
         form.reset();
-        
         window.location.href = '/profile';
-        
+
       } else {
+        const login = usernameInput.value.trim();
+        const password = passwordInput.value;
+
         const allUsers = await usersDataBase.getAll();
-        const user = allUsers.find(u => u.login === usernameInput.value.trim());
+        const user = allUsers.find(u => u.login === login);
 
-        if (!user) {
-          showError(usernameInput, 'Пользователь не найден');
+        if (!user || !User.fromDB(user).verifyPassword(password)) {
+          showFormError('Неверное имя пользователя или пароль');
           return;
         }
 
-        const userInstance = User.fromDB(user);
-        
-        if (!userInstance.verifyPassword(passwordInput.value)) {
-          showError(passwordInput, 'Неверный пароль');
-          return;
-        }
-        
         sessionStorage.setItem('currentUserId', user.id);
-        
         window.location.href = '/';
       }
 
@@ -156,9 +161,11 @@ function validateInputs() {
   [usernameInput, passwordInput, emailInput, displayNameInput]
     .filter(Boolean)
     .forEach(input => {
-      input.addEventListener('input', () => clearError(input));
+      input.addEventListener('input', () => {
+        clearError(input);
+        clearFormError();
+      });
     });
 }
-
 
 export { proceedLoginForm };

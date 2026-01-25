@@ -1,0 +1,15 @@
+.error-message, .form-error {
+	color: red;
+	background-color: #ffcccb;
+
+	font-size: 0.9rem;
+
+	margin-block-start: 4px;
+		
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+
+	border-radius: 2.5px;
+}
