@@ -1,4 +1,4 @@
-import { CURRENT_PATH, CONTENT_DATA, CURRENT_USER } from "../variables-constants.js";
+import { BASE_PATH, CURRENT_PATH, CONTENT_DATA, CURRENT_USER } from "../variables-constants.js";
 import { contentBuilder } from "../utils/content-builder.js";
 import { applyTypographyToElement } from "../utils/typographer.js";
 import { replaceVariableInText } from "../utils/login-utils.js";
@@ -31,7 +31,7 @@ class PageMain extends HTMLElement {
       }
 		} else if (CURRENT_PATH == '/profile') {
 			if (CURRENT_USER == null) {
-				window.location.href = '/login';
+				window.location.href = BASE_PATH + '/login';
 			}
 			replaceVariableInText(markup, CURRENT_USER);
 		}

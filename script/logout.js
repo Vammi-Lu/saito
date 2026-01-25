@@ -1,7 +1,9 @@
+import { BASE_PATH } from "./variables-constants";
+
 function logout() {
   localStorage.removeItem('currentUserId');
   console.log('Пользователь вышел из системы');
-  window.location.href = '/';
+  window.location.href = BASE_PATH + '/';
 }
 
 logout();
