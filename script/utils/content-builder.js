@@ -15,7 +15,7 @@ function contentBuilder(node) {
         const { tagName, id, classes, attributes } = parseTag(tag);
 
         if (tagName === "table") {
-          return renderTable(value);
+          return renderTable(id, classes, attributes, value);
         }
 
         if (tagName === "script") {
@@ -81,7 +81,24 @@ function parseTag(tag) {
   return { tagName, id, classes, attributes };
 }
 
-function renderTable(table) {
+function renderTable(id, classes, attributes, table) {
+  const idAttr = id ? ` id="${id}"` : "";
+  const classAttr = classes.length ? ` class="${classes.join(" ")}"` : "";
+  const attrsStr = attributes.length
+    ? " " +
+      attributes
+        .map(([key, val]) => (val ? `${key}="${val}"` : key))
+        .join(" ")
+    : "";
+
+  const colgroup = table["cols-width"]
+    ? `
+			<colgroup>
+				${table["cols-width"].map((width) => `<col style="width: ${width}%">`).join("")}
+			</colgroup>
+		`
+    : "";
+
   const thead = table.headers
     ? `
 			<thead>
@@ -106,7 +123,8 @@ function renderTable(table) {
     : "";
 
   return `
-		<table>
+		<table${idAttr}${classAttr}${attrsStr}>
+			${colgroup}
 			${thead}
 			${tbody}
 		</table>

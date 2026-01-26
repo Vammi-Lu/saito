@@ -6,6 +6,7 @@
 
 @import './elements/button.css';
 @import './elements/dropdown.css';
+@import './elements/table.css';
 @import './elements/bmi-calculator.css';
 @import './elements/login-register.css';
 @import './elements/error.css';
