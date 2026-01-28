@@ -1,5 +1,5 @@
 .extended-width {
 	width: calc(100% + 150%);
 
-	margin-left: calc(-120% / 2);
+	/* margin-left: calc(-120% / 2); */
 }

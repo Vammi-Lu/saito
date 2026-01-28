@@ -4,10 +4,11 @@
 	position: relative;
 	
 	width: 100%;
-	padding: 2.5rem;
+	padding-block: 2.5rem;
+	padding-inline: 8rem;
 
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 	align-items: flex-start;
 
 	& > .page-main__content {

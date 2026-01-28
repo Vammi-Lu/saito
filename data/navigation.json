@@ -5,7 +5,8 @@
 		{"label": "Профилактика ожирения", "childs": [
 			{"label": "Рациональное питание", "url": "/rational"},
 			{"label": "Физическая активность", "url": "/activity"}
-		]}
+		]},
+		{"label": "Калькулятор ИМТ", "url": "/bmi-calculator"}
 	],
 	"logonStatus": {
 		"loggedIn": [
