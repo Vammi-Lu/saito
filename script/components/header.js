@@ -8,6 +8,10 @@ async function makeHeader() {
 
 	const pageHeaderContentWrapper = document.createElement("div");
 	pageHeaderContentWrapper.classList.add("page-header__content-wrapper");
+	
+	const pageHeaderTitleWrapper = document.createElement("a");
+	pageHeaderTitleWrapper.classList.add("page-header__title-wrapper");
+	pageHeaderTitleWrapper.href = "";
 
 	const pageHeaderLogo = document.createElement("div");
 	pageHeaderLogo.classList.add("page-header__logo");
@@ -17,18 +21,20 @@ async function makeHeader() {
 
 	const pageHeaderLogoImage = document.createElement("img");
 	pageHeaderLogoImage.classList.add("page-header__logo__image");
-	pageHeaderLogoImage.src = "./images/svg/logo.svg";
+	pageHeaderLogoImage.src = "./favicon.svg";
 	pageHeaderLogoImage.alt = "logo";
 
 	pageHeaderLogoImageWrapper.appendChild(pageHeaderLogoImage);
 	pageHeaderLogo.appendChild(pageHeaderLogoImageWrapper);
-	pageHeaderContentWrapper.appendChild(pageHeaderLogo);
+	pageHeaderTitleWrapper.appendChild(pageHeaderLogo);
 
 	const pageHeaderTitle = document.createElement("h1");
 	pageHeaderTitle.classList.add("page-header__title");
 	pageHeaderTitle.textContent = title.textContent;
 
-	pageHeaderContentWrapper.appendChild(pageHeaderTitle);
+	pageHeaderTitleWrapper.appendChild(pageHeaderTitle);
+
+	pageHeaderContentWrapper.appendChild(pageHeaderTitleWrapper);
 	pageHeaderContentWrapper.appendChild(await makeHeaderNavigation("default"));
 	markup.appendChild(pageHeaderContentWrapper);
 	

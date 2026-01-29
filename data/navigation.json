@@ -1,6 +1,6 @@
 {
 	"default": [
-		{"label": "Главная", "url": "#"},
+		{"label": "Главная", "url": "#home"},
 		{"label": "Сведения", "url": "#info"},
 		{"label": "Профилактика ожирения", "childs": [
 			{"label": "Рациональное питание", "url": "#rational"},
