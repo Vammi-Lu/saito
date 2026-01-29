@@ -1,25 +1,39 @@
+import { makeHeaderNavigation } from "./header-navigation.js";
 
-import { META_DATA } from "../variables-constants.js";
+async function makeHeader() {
+	const title = document.querySelector("title");
 
-class PageHeader extends HTMLElement {
-	connectedCallback() {
-		const markup = document.createElement("header");
-		markup.classList.add("page-header");
+	const markup = document.createElement("header");
+	markup.classList.add("page-header");
 
-		markup.innerHTML = /*html*/ `
-			<div class="page-header__content-wrapper">
-				<div class="page-header__logo">
-					<div class="page-header__logo__image-wrapper">
-						<img class="page-header__logo__image" src="images/svg/logo.svg" alt="logo">
-					</div>
-				</div>
-				<h1 class="page-header__title">${META_DATA["Заголовок"]}</h1>
-				<page-header-navigation></page-header-navigation>
-			</div>
-		`;
+	const pageHeaderContentWrapper = document.createElement("div");
+	pageHeaderContentWrapper.classList.add("page-header__content-wrapper");
 
-		this.replaceWith(markup);
-	}
+	const pageHeaderLogo = document.createElement("div");
+	pageHeaderLogo.classList.add("page-header__logo");
+
+	const pageHeaderLogoImageWrapper = document.createElement("div");
+	pageHeaderLogoImageWrapper.classList.add("page-header__logo__image-wrapper");
+
+	const pageHeaderLogoImage = document.createElement("img");
+	pageHeaderLogoImage.classList.add("page-header__logo__image");
+	pageHeaderLogoImage.src = "./images/svg/logo.svg";
+	pageHeaderLogoImage.alt = "logo";
+
+	pageHeaderLogoImageWrapper.appendChild(pageHeaderLogoImage);
+	pageHeaderLogo.appendChild(pageHeaderLogoImageWrapper);
+	pageHeaderContentWrapper.appendChild(pageHeaderLogo);
+
+	const pageHeaderTitle = document.createElement("h1");
+	pageHeaderTitle.classList.add("page-header__title");
+	pageHeaderTitle.textContent = title.textContent;
+
+	pageHeaderContentWrapper.appendChild(pageHeaderTitle);
+	pageHeaderContentWrapper.appendChild(await makeHeaderNavigation("default"));
+	markup.appendChild(pageHeaderContentWrapper);
+	
+	return markup;
 }
 
-customElements.define('page-header', PageHeader);
+
+export { makeHeader };

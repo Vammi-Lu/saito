@@ -1,5 +1,5 @@
 import { User, usersDataBase, RegistrationForm } from "./login.js";
-import { BASE_PATH } from "./variables-constants.js";
+import { BASE_PATH } from "../variables-constants.js";
 
 async function proceedLoginForm(formElement, isRegistration = false) {
   const form = formElement;
@@ -123,8 +123,11 @@ async function proceedLoginForm(formElement, isRegistration = false) {
           localStorage.setItem('currentUserId', registeredUser.id);
         }
 
-        form.reset();
-        window.location.href = BASE_PATH + '/profile';
+				form.reset();
+
+				document.body.style.display = "none";
+				window.location.replace(BASE_PATH + '#profile');
+				window.location.reload();
 
       } else {
         const login = usernameInput.value.trim();

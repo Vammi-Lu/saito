@@ -1,43 +1,57 @@
-import { BASE_PATH, CURRENT_PATH, CONTENT_DATA, CURRENT_USER } from "../variables-constants.js";
+import { CONTENT_DATA, CURRENT_USER } from "../variables-constants.js";
 import { contentBuilder } from "../utils/content-builder.js";
 import { applyTypographyToElement } from "../utils/typographer.js";
-import { replaceVariableInText } from "../utils/login-utils.js";
-import { proceedLoginForm } from "../login-form.js";
+import { replaceVariableInText } from "../accounts/login-utils.js";
+import { proceedLoginForm } from "../accounts/login-form.js";
 
-class PageMain extends HTMLElement {
-  async connectedCallback() {
-    const markup = document.createElement("main");
-    markup.classList.add("page-main");
+async function makeMain() {
+  const markup = document.createElement("main");
+	markup.classList.add("page-main");
+	
+	const CONTENT_DATA_COUNT = Object.keys(CONTENT_DATA).length;
 
-    const pageMainContent = document.createElement("div");
-    pageMainContent.classList.add("page-main__content");
-    pageMainContent.innerHTML = contentBuilder(CONTENT_DATA[CURRENT_PATH]["content"]);
-    applyTypographyToElement(pageMainContent);
+	if (CONTENT_DATA_COUNT == 0) {
+		console.error('Нет данных в CONTENT_DATA');
+		return;
+	}
 
-    const pageMainSidebar = document.createElement("div");
-    pageMainSidebar.classList.add("page-main__sidebar");
-    pageMainSidebar.innerHTML = contentBuilder(CONTENT_DATA[CURRENT_PATH]["sidebar"]);
-    applyTypographyToElement(pageMainSidebar);
+	for (const [CONTENT_PAGE, CONTENT] of Object.entries(CONTENT_DATA)) {
+		const section = document.createElement('section');
+		const sectionId = CONTENT_PAGE.replace(/^#/, '');
 
-    markup.appendChild(pageMainContent);
-    markup.appendChild(pageMainSidebar);
+		section.setAttribute('id', sectionId);
+		section.classList.add('page-section');
 		
-    if (CURRENT_PATH == '/login' || CURRENT_PATH == '/register') {
-			const isRegister = CURRENT_PATH == '/register';
-			const formElement = markup.querySelector(`.login-form`);
-      
-      if (formElement) {
+		const pageMainContent = document.createElement("div");
+		pageMainContent.classList.add("page-main__content");
+		pageMainContent.innerHTML = contentBuilder(CONTENT["content"]);
+		applyTypographyToElement(pageMainContent);
+		
+		const pageMainSidebar = document.createElement("div");
+		pageMainSidebar.classList.add("page-main__sidebar");
+		pageMainSidebar.innerHTML = contentBuilder(CONTENT["sidebar"]);
+		applyTypographyToElement(pageMainSidebar);
+		
+		section.appendChild(pageMainContent);
+		section.appendChild(pageMainSidebar);
+
+		
+		if (CONTENT_PAGE == 'login' || CONTENT_PAGE == 'register') {
+			const isRegister = CONTENT_PAGE == 'register';
+			const formElement = section.querySelector('.login-form');
+			
+			if (formElement) {
 				await proceedLoginForm(formElement, isRegister);
-      }
-		} else if (CURRENT_PATH == '/profile') {
-			if (CURRENT_USER == null) {
-				window.location.href = BASE_PATH + '/login';
 			}
-			replaceVariableInText(markup, CURRENT_USER);
+		} else if (CONTENT_PAGE == 'profile' && CURRENT_USER) {
+			replaceVariableInText(section, CURRENT_USER);
 		}
 		
-		this.replaceWith(markup);
-  }
+		markup.appendChild(section);
+	}
+	
+	
+	return markup;
 }
 
-customElements.define("page-main", PageMain);
+export { makeMain };

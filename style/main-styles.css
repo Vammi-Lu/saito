@@ -1,28 +1,55 @@
 .page-main {
 	background: var(--medical-theme-color-medium);
-
-	position: relative;
 	
 	width: 100%;
 	padding-block: 2.5rem;
 	padding-inline: 8rem;
 
 	display: flex;
-	justify-content: flex-start;
-	align-items: flex-start;
+	flex-direction: column;
 
-	& > .page-main__content {
-		width: 35rem;
+	& > .page-section {
+		position: relative;
+		
+		display: none;
+
+		align-self: flex-start;
+		justify-self: flex-start;
+
+		&#login, &#register , &#profile {
+			align-self: center;
+			justify-self: center;
+		}
+
+		&#home {
+			display: flex;
+		}
+
+		&:target ~ #home {
+			display: none;
+		}
+
+		&:target {
+			display: flex;
+		}
+
+		justify-content: center;
+		align-items: flex-start;
+
+		& > .page-main__content {
+			width: 35rem;
 
 		font-size: 1.25rem;
-	}
+			}
 
-	& > .page-main__sidebar {
-		position: absolute;
-		top: 2rem;
-		left: calc(50% + 20rem + 2rem);
-		width: 24rem;
-		height: calc(100% - 4rem);
-		display: grid;
+		& > .page-main__sidebar {
+			position: absolute;
+			top: 2rem;
+			left: calc(50% + 20rem + 2rem);
+			/* width: 24rem; */
+			height: calc(100% - 4rem);
+			display: grid;
+		}
 	}
 }
+

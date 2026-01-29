@@ -1,22 +1,22 @@
 {
 	"default": [
-		{"label": "Главная", "url": "/"},
-		{"label": "Сведения", "url": "/info"},
+		{"label": "Главная", "url": "#"},
+		{"label": "Сведения", "url": "#info"},
 		{"label": "Профилактика ожирения", "childs": [
-			{"label": "Рациональное питание", "url": "/rational"},
-			{"label": "Физическая активность", "url": "/activity"}
+			{"label": "Рациональное питание", "url": "#rational"},
+			{"label": "Физическая активность", "url": "#activity"}
 		]},
-		{"label": "Калькулятор ИМТ", "url": "/bmi-calculator"}
+		{"label": "Калькулятор ИМТ", "url": "#bmi-calculator"}
 	],
 	"logonStatus": {
 		"loggedIn": [
 			{"label": "${displayName}", "style": "margin-left: auto;", "childs": [
-				{"label": "Профиль", "url": "/profile"},
-				{"label": "Выход", "url": "/logout"}
+				{"label": "Профиль", "url": "#profile"},
+				{"label": "Выход", "url": "#logout"}
 			]}
 		],
 		"loggedOut": [
-			{"label": "Вход", "url": "/login", "style": "margin-left: auto;", "attributes": {"target": "_blank"}}
+			{"label": "Вход", "url": "#login", "style": "margin-left: auto;"}
 		]
 	}
 } 
