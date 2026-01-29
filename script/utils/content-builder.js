@@ -1,5 +1,3 @@
-import { BASE_PATH } from "../variables-constants.js";
-
 function contentBuilder(node) {
   if (typeof node === "string") {
     return node;
@@ -25,7 +23,7 @@ function contentBuilder(node) {
 				if (tagName === "a") {
 					attributes.map(([key, val]) => {
 						if (key === 'href') {
-							attributes[0][1] = BASE_PATH + val;
+							attributes[0][1] = val;
 						}
 					})
 				}

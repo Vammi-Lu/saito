@@ -1,9 +1,9 @@
-import { CURRENT_USER, BASE_PATH } from "../variables-constants.js";
+import { CURRENT_USER } from "../variables-constants.js";
 import { logout } from "../accounts/logout.js";
 
 async function redirectIfNoUser(sectionId) {
   if (sectionId === 'profile' && !CURRENT_USER) {
-    window.location.href = `${BASE_PATH}#login`;
+    window.location.href = `#login`;
     return true;
   }
   return false;

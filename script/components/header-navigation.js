@@ -1,4 +1,4 @@
-import { BASE_PATH, NAVIGATION_DATA, LOGGED_IN, CURRENT_USER } from "../variables-constants.js";
+import { NAVIGATION_DATA, LOGGED_IN, CURRENT_USER } from "../variables-constants.js";
 import { replaceVariableInText } from "../accounts/login-utils.js";
 
 async function makeHeaderNavigation(variant = "default") {
@@ -32,7 +32,7 @@ async function buildNavMenu(items, lastItems = []) {
 				const a = document.createElement("a");
 				a.classList.add("header-navigation__link");
 				a.textContent = item.label;
-				a.href = BASE_PATH + item.url;
+				a.href = item.url;
 
 				if (item.attributes) {
 					for (const [key, value] of Object.entries(item.attributes)) {
