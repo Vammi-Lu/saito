@@ -92,7 +92,7 @@ function renderTable(id, classes, attributes, table) {
   const colgroup = table["cols-width"]
     ? `
 			<colgroup>
-				${table["cols-width"].map((width) => `<col style="width: ${width}%">`).join("")}
+				${table["cols-width"].map((width) => `<col width="${width}%">`).join("")}
 			</colgroup>
 		`
     : "";

@@ -52,7 +52,6 @@ const [
 const LOGGED_IN = CURRENT_USER !== null;
 
 export {
-	BASE_PATH,
 	NAVIGATION_DATA,
 	CONTENT_DATA,
 	LOGGED_IN,

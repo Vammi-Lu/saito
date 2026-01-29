@@ -1,13 +1,14 @@
 import { User, usersDataBase, RegistrationForm } from "./login.js";
 
 async function proceedLoginForm(formElement, isRegistration = false) {
-  const form = formElement;
+	const form = formElement;
+	const prefix = isRegistration ? 'register' : 'login';
   
-  const usernameInput = form.querySelector('#login-username');
-  const passwordInput = form.querySelector('#login-password');
-  const emailInput = form.querySelector('#login-email');
-  const displayNameInput = form.querySelector('#login-displayname');
-  const submitButton = form.querySelector('#login-button');
+	const usernameInput = form.querySelector(`#${prefix}-username`);
+	const passwordInput = form.querySelector(`#${prefix}-password`);
+	const emailInput = form.querySelector(`#${prefix}-email`);
+	const displayNameInput = form.querySelector(`#${prefix}-displayname`);
+	const submitButton = form.querySelector(`#${prefix}-button`);
 
   const formError = form.querySelector('.form-error');
 
