@@ -856,6 +856,140 @@
     history.scrollRestoration = "manual";
     document.body.style.display = "none";
     (async () => {
+      const BMIInfo = [{
+          index: 16,
+          text: "Выраженный дефицит массы тела",
+          color: "#30a7cfff"
+        },
+        {
+          index: 18.5,
+          text: "Недостаточная (дефицит) массы тела",
+          color: "#2a96c1ff"
+        },
+        {
+          index: 24.99,
+          text: "Норма",
+          color: "#47a147ff"
+        },
+        {
+          index: 30,
+          text: "Избыточная масса тела (предожирение)",
+          color: "#e2c101ff"
+        },
+        {
+          index: 35,
+          text: "Ожирение второй степени",
+          color: "#FFA500"
+        },
+        {
+          index: 40,
+          text: "Ожирение третьей степени (морбидное)",
+          color: "#FF0000"
+        },
+      ];
+
+      function getBMIInfo(index) {
+        return (
+          BMIInfo.find((set) => index <= set.index) || BMIInfo[BMIInfo.length - 1]
+        );
+      }
+
+      function getBMIIndex(weight, height) {
+        return weight / (height / 100) ** 2;
+      }
+
+      function calculateBMI() {
+        const weightInput = document.getElementById("bmi-weight");
+        const heightInput = document.getElementById("bmi-height");
+
+        const weightValue = parseFloat(weightInput.value);
+        const heightValue = parseFloat(heightInput.value);
+
+        if (isNaN(weightValue) || isNaN(heightValue) || weightValue <= 0 || heightValue <= 0) {
+          alert("Пожалуйста, введите корректные значения");
+          return;
+        }
+
+        const indexValue = getBMIIndex(weightValue, heightValue);
+        const {
+          text,
+          color
+        } = getBMIInfo(indexValue);
+
+        const BMIValueDiv = document.getElementById("bmi-result-value");
+        const BMIDescriptionDiv = document.getElementById("bmi-result-description");
+
+        BMIValueDiv.textContent = `Ваш ИМТ: ${indexValue.toFixed(2)}`;
+        BMIValueDiv.style.color = color;
+        BMIDescriptionDiv.textContent = text;
+      }
+
+      function initBMICalculator() {
+        const heightInput = document.getElementById("bmi-height");
+        const weightInput = document.getElementById("bmi-weight");
+
+        const limits = {
+          height: {
+            min: 45,
+            max: 272
+          },
+          weight: {
+            min: 2.5,
+            max: 645
+          }
+        };
+
+
+        function preventNonNumeric(e) {
+          const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Home', 'End'];
+          if (allowedKeys.includes(e.key)) return;
+          if ((e.ctrlKey || e.metaKey) && ['a', 'c', 'v', 'x'].includes(e.key.toLowerCase())) return;
+          if (/^\d$/.test(e.key)) return;
+          if (e.key === '.' && !e.target.value.includes('.')) return;
+          e.preventDefault();
+        }
+
+        function enforceLimitsOnBlur(e, fieldLimits) {
+          const val = parseFloat(e.target.value);
+          if (isNaN(val)) return;
+          if (val < fieldLimits.min) e.target.value = fieldLimits.min;
+          if (val > fieldLimits.max) e.target.value = fieldLimits.max;
+        }
+
+        function handlePaste(e, fieldLimits) {
+          e.preventDefault();
+          const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+          let numeric = parseFloat(pastedText.replace(/[^\d.]/g, ''));
+          if (isNaN(numeric)) numeric = '';
+          e.target.value = numeric;
+        }
+
+        [heightInput, weightInput].forEach((input, idx) => {
+          if (!input) return;
+          const fieldLimits = idx === 0 ? limits.height : limits.weight;
+
+          input.setAttribute('min', fieldLimits.min);
+          input.setAttribute('max', fieldLimits.max);
+
+          input.addEventListener('keydown', preventNonNumeric);
+          input.addEventListener('paste', (e) => handlePaste(e, fieldLimits));
+          input.addEventListener('blur', (e) => enforceLimitsOnBlur(e, fieldLimits));
+        });
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initBMICalculator);
+      } else {
+        initBMICalculator();
+      }
+
+      document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'bmi-calculate-button') {
+          calculateBMI();
+        }
+      });
+
+
       async function syncInitialHash() {
         if (!location.hash) return;
 

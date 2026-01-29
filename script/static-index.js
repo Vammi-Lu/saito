@@ -1,3 +1,5 @@
+import './bmi-calculator.js';
+
 async function syncInitialHash() {
 	if (!location.hash) return;
 
